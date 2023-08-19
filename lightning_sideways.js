@@ -29,9 +29,17 @@ var leftCounter = rightCounter = 0
 addEventListener("mousemove", (event) => {
     //console.log(event.clientX, event.clientY);
     if (Math.random() > 0.9) {
+
+
         preShake(30, 30);
-        render(event.clientX, event.clientY);
+        ctx.strokeStyle = "#f76a7d"
+        ctx.font = "50px 'arial', cursive, sans-serif";
+        ctx.strokeText("TRANCEKRAFT 4000", logobBtn.x, logobBtn.y);
+        ctx.font = "40px 'arial', cursive";
+        ctx.strokeText("DATES", datesBtn.x, datesBtn.y);
         postShake();
+        render(event.clientX, event.clientY);
+
     }
     //drawLightning(ctx, event.clientX, event.clientY, "left", 100);
 });
@@ -44,7 +52,7 @@ ctx.lineWidth = 5; ctx.lineJoin = "round";// ctx.globalAlpha = 2 / 3;
 var contactBtn = { x: 600, y: 350, h: 40 }
 
 var datesBtn = { x: 600, y: 300, h: 40 }
-var logobBtn = {x: 500, y: 180, h:50}
+var logobBtn = { x: 500, y: 180, h: 50 }
 
 function render(x, y) {
 
@@ -62,14 +70,15 @@ function render(x, y) {
     //const fs = ctx.fillStyle;
 
 
-    preShake(1000);
     //ctx.fillStyle = "red";
     ctx.font = "50px 'arial', cursive, sans-serif";
-    var gradient=ctx.createLinearGradient(0,0,width,height);
-gradient.addColorStop(0,"red");
-gradient.addColorStop(1,"blue");
+    var gradient = ctx.createLinearGradient(0, logobBtn.y + 15, 0, 50);
+    gradient.addColorStop(0, "#94ecf2");
+    gradient.addColorStop(1, "#e859f0");
 
-ctx.strokeStyle = gradient;
+    ctx.strokeStyle = gradient;/*
+preShake(20, 20);
+
     ctx.strokeText("TRANCEKRAFT 4000", logobBtn.x, logobBtn.y);
     ctx.font = "40px 'arial', cursive";
     ctx.strokeText("DATES", datesBtn.x, datesBtn.y);
@@ -84,13 +93,14 @@ ctx.strokeStyle = gradient;
 
     ctx.stroke();
     postShake();
+    */
 
     ctx.font = "50px 'arial', cursive, sans-serif";
     ctx.strokeText("TRANCEKRAFT 4000", logobBtn.x, logobBtn.y);
     ctx.font = "40px 'arial', cursive";
     ctx.strokeText("DATES", datesBtn.x, datesBtn.y);
-let dm = ctx.measureText("DATES");
-    ctx.fillRect(datesBtn.x, datesBtn.y - datesBtn.h, datesBtn.w, datesBtn.h)
+    let dm = ctx.measureText("DATES");
+    //ctx.fillRect(datesBtn.x, datesBtn.y - datesBtn.h, datesBtn.w, datesBtn.h)
     datesBtn.w = dm.width;
     dm = ctx.measureText("TRANCEKRAFT 4000");
     logobBtn.w = dm.width;
@@ -99,9 +109,55 @@ let dm = ctx.measureText("DATES");
     for (var i = 0; i < lightning.length; i++) {
         ctx.lineTo(lightning[i].x, lightning[i].y);
     }
-    ctx.strokeStyle = "#91f2f2"
+    //ctx.strokeStyle = "#91f2f2"
 
     ctx.stroke();
+    ctx.strokeStyle = "#e859f0"
+    lightning = createLightningTop(x, y);
+    ctx.beginPath();
+    for (var i = 0; i < lightning.length; i++) {
+        ctx.lineTo(lightning[i].x, lightning[i].y);
+    }
+    //ctx.strokeStyle = "#91f2f2"
+
+    ctx.stroke();
+
+    ctx.font = "18px arial"
+    /*
+    var canvas = c
+
+    window.devicePixelRatio=2;      //Clear Text
+        //(CSS pixels).
+              //Display Size
+        var size = 500;
+        canvas.style.width = window.screen.width + "px";
+        canvas.style.height = window.screen.height + "px";
+  
+        var scale = window.devicePixelRatio; 
+            
+        canvas.width = Math.floor(size * scale);
+        canvas.height = Math.floor(size * scale);
+  
+        //CSS pixels for coordinate systems
+        ctx.scale(scale, scale);
+        ctx.font = '10px Arial';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+  
+        var x = size / 2;
+        var y = size / 2;
+  
+        var textString = "GEEKS FOR GEEKS";
+        ctx.strokeText(textString, x, y);
+        */
+
+    const fs = ctx.fillStyle;
+    ctx.fillStyle = "red"
+    ctx.fillText("lorem ispda dasmld,mmk sdkmdkakm ", 500, 500)
+    ctx.fillText("lorem ispda dasmld,mmk sdkmdkakm ", 500, 520)
+
+    ctx.fillStyle = fs
+
     //ctx.fillStyle = fs;
 
     //ctx.fillStyle = "black"
@@ -264,13 +320,13 @@ addEventListener("mousedown", (event) => {
         ctx.stroke();
         //render();
         postShake();
-/*
-        content = document.createElement("DIV")
-        content.className = "center menu content"
-        content.innerHTML = "sdfssfdfsf s fsdffs <br>fewfwefwe"
-        document.body.appendChild(content)
-
-        */
+        /*
+                content = document.createElement("DIV")
+                content.className = "center menu content"
+                content.innerHTML = "sdfssfdfsf s fsdffs <br>fewfwefwe"
+                document.body.appendChild(content)
+        
+                */
     }
 
 
@@ -479,6 +535,38 @@ function animateText(x, y, txt, speed) {
     datesBtn.w = recAnimateText().width;
     //console.log(recAnimateText());
 }
+setTimeout(function f() {
+    const next = Math.floor(Math.random() * 1500)
+
+    if (Math.random() > 0.5) {
+        preShake(30, 30);
+        ctx.strokeStyle = "#f76a7d"
+        ctx.font = "50px 'arial', cursive, sans-serif";
+        ctx.strokeText("TRANCEKRAFT 4000", logobBtn.x, logobBtn.y);
+        ctx.font = "40px 'arial', cursive";
+        ctx.strokeText("DATES", datesBtn.x, datesBtn.y);
+        postShake();
+    } else {
+        var lightning = createLightningLeft(width / 2, logobBtn.y);
+        ctx.beginPath();
+        for (var i = 0; i < lightning.length; i++) {
+            ctx.lineTo(lightning[i].x, lightning[i].y);
+        }
+        //ctx.strokeStyle = "#91f2f2"
+
+        ctx.stroke();
+        lightning = createLightning(width / 2, logobBtn.y);
+        ctx.beginPath();
+        for (var i = 0; i < lightning.length; i++) {
+            ctx.lineTo(lightning[i].x, lightning[i].y);
+        }
+        //ctx.strokeStyle = "#91f2f2"
+
+        ctx.stroke();
+    }
+
+    setTimeout(f, next)
+}, 1000)
 
 function preShake(px, py) {
     ctx.save();
