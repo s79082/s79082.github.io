@@ -34,7 +34,7 @@ addEventListener("mousemove", (event) => {
         preShake(30, 30);
         ctx.strokeStyle = "#f76a7d"
         ctx.font = "50px 'arial', cursive, sans-serif";
-        ctx.strokeText("TRANCEKRAFT 4000", logobBtn.x, logobBtn.y);
+        ctx.strokeText("LIGHTNING 9000", logobBtn.x, logobBtn.y);
         ctx.font = "40px 'arial', cursive";
         ctx.strokeText("DATES", datesBtn.x, datesBtn.y);
         postShake();
@@ -96,13 +96,13 @@ preShake(20, 20);
     */
 
     ctx.font = "50px 'arial', cursive, sans-serif";
-    ctx.strokeText("TRANCEKRAFT 4000", logobBtn.x, logobBtn.y);
+    ctx.strokeText("LIGHTNING 9000", logobBtn.x, logobBtn.y);
     ctx.font = "40px 'arial', cursive";
     ctx.strokeText("DATES", datesBtn.x, datesBtn.y);
     let dm = ctx.measureText("DATES");
     //ctx.fillRect(datesBtn.x, datesBtn.y - datesBtn.h, datesBtn.w, datesBtn.h)
     datesBtn.w = dm.width;
-    dm = ctx.measureText("TRANCEKRAFT 4000");
+    dm = ctx.measureText("LIGHTNING 9000");
     logobBtn.w = dm.width;
     var lightning = createLightningTop(x, y);
     ctx.beginPath();
@@ -542,7 +542,7 @@ setTimeout(function f() {
         preShake(30, 30);
         ctx.strokeStyle = "#f76a7d"
         ctx.font = "50px 'arial', cursive, sans-serif";
-        ctx.strokeText("TRANCEKRAFT 4000", logobBtn.x, logobBtn.y);
+        ctx.strokeText("LIGHTNING 9000", logobBtn.x, logobBtn.y);
         ctx.font = "40px 'arial', cursive";
         ctx.strokeText("DATES", datesBtn.x, datesBtn.y);
         postShake();
