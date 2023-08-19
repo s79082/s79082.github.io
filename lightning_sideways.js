@@ -24,9 +24,15 @@ ctx.fillStyle = "hsla(0, 0%, 10%, 0.2)";
 
 var rafId;
 
+var leftCounter = rightCounter = 0
+
 addEventListener("mousemove", (event) => {
     //console.log(event.clientX, event.clientY);
-    render(event.clientX, event.clientY);
+    if (Math.random() > 0.9) {
+        preShake(30, 30);
+        render(event.clientX, event.clientY);
+        postShake();
+    }
     //drawLightning(ctx, event.clientX, event.clientY, "left", 100);
 });
 
@@ -35,28 +41,70 @@ dashLen = 220, dashOffset = dashLen, speed = 500,
 ctx.font = "40px 'arial', cursive";
 ctx.lineWidth = 5; ctx.lineJoin = "round";// ctx.globalAlpha = 2 / 3;
 //ctx.strokeStyle = ctx.fillStyle = "#1f2f90";
+var contactBtn = { x: 600, y: 350, h: 40 }
 
+var datesBtn = { x: 600, y: 300, h: 40 }
+var logobBtn = {x: 500, y: 180, h:50}
 
 function render(x, y) {
 
+    //if ()
 
     if (rafId != undefined) {
         cancelAnimationFrame(rafId);
     }
     ctx.shadowBlur = 0;
     ctx.globalCompositeOperation = "source-over";
+    //ctx.clearRect(0,0,width, height);
     ctx.fillRect(0, 0, width, height);
-    ctx.globalCompositeOperation = "lighter";
-    ctx.shadowBlur = 15;
+    //ctx.globalCompositeOperation = "lighter";
+    //ctx.shadowBlur = 15;
+    //const fs = ctx.fillStyle;
 
+
+    preShake(1000);
+    //ctx.fillStyle = "red";
+    ctx.font = "50px 'arial', cursive, sans-serif";
+    var gradient=ctx.createLinearGradient(0,0,width,height);
+gradient.addColorStop(0,"red");
+gradient.addColorStop(1,"blue");
+
+ctx.strokeStyle = gradient;
+    ctx.strokeText("TRANCEKRAFT 4000", logobBtn.x, logobBtn.y);
     ctx.font = "40px 'arial', cursive";
-    ctx.strokeText("TRANCEKRAFT 4000", 500, 500);
+    ctx.strokeText("DATES", datesBtn.x, datesBtn.y);
+    ctx.strokeText("CONTACT", contactBtn.x, contactBtn.y);
+
     var lightning = createLightningTop(x, y);
     ctx.beginPath();
     for (var i = 0; i < lightning.length; i++) {
         ctx.lineTo(lightning[i].x, lightning[i].y);
     }
+    ctx.strokeStyle = "#f071dd"
+
     ctx.stroke();
+    postShake();
+
+    ctx.font = "50px 'arial', cursive, sans-serif";
+    ctx.strokeText("TRANCEKRAFT 4000", logobBtn.x, logobBtn.y);
+    ctx.font = "40px 'arial', cursive";
+    ctx.strokeText("DATES", datesBtn.x, datesBtn.y);
+let dm = ctx.measureText("DATES");
+    ctx.fillRect(datesBtn.x, datesBtn.y - datesBtn.h, datesBtn.w, datesBtn.h)
+    datesBtn.w = dm.width;
+    dm = ctx.measureText("TRANCEKRAFT 4000");
+    logobBtn.w = dm.width;
+    var lightning = createLightningTop(x, y);
+    ctx.beginPath();
+    for (var i = 0; i < lightning.length; i++) {
+        ctx.lineTo(lightning[i].x, lightning[i].y);
+    }
+    ctx.strokeStyle = "#91f2f2"
+
+    ctx.stroke();
+    //ctx.fillStyle = fs;
+
+    //ctx.fillStyle = "black"
     //animateLightningCircle(x, y);
 
     /*
@@ -81,6 +129,7 @@ function render(x, y) {
     }
     ctx.stroke();
     */
+
     rafId = requestAnimationFrame(render);
 }
 
@@ -182,11 +231,51 @@ function createLightningBottom(x, y) {
     return lightning;
 }
 
+function inside(x, y, x1, y1, w1, h1) {
+
+    if (x < x1 || x > x1 + w1) return false;
+    if (y < y1 || y > y1 + h1) return false;
+    return true
+
+}
+
 // Add an event listener for mouse clicks
 addEventListener("mousedown", (event) => {
     //animateLightningCircle(event.clientX, event.clientY);
 
-    loop()
+    const txt = "dsaaff"
+
+    if (inside(event.clientX, event.clientY, datesBtn.x, datesBtn.y, datesBtn.w, datesBtn.h)) {
+        console.log("inside")
+
+        preShake(100, 100);
+
+        var lightning = createLightningLeft(event.clientX, event.clientY);
+        ctx.beginPath();
+        for (var i = 0; i < lightning.length; i++) {
+            ctx.lineTo(lightning[i].x, lightning[i].y);
+        }
+        ctx.stroke();
+        var lightning = createLightning(event.clientX, event.clientY);
+        ctx.beginPath();
+        for (var i = 0; i < lightning.length; i++) {
+            ctx.lineTo(lightning[i].x, lightning[i].y);
+        }
+        ctx.stroke();
+        //render();
+        postShake();
+/*
+        content = document.createElement("DIV")
+        content.className = "center menu content"
+        content.innerHTML = "sdfssfdfsf s fsdffs <br>fewfwefwe"
+        document.body.appendChild(content)
+
+        */
+    }
+
+
+    //animateText(500, 200, txt, 50);
+    //loop()
     //loopMenu()
 });
 
@@ -317,12 +406,12 @@ function loop() {
     //ctx.clearRect(x, 0, 60, 150);
     ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
     dashOffset -= speed;                                         // reduce dash length
-    ctx.strokeText(txt[i], x, 90);                               // stroke letter
+    ctx.strokeText(txt[i], x, 200);                               // stroke letter
 
     if (dashOffset > 0) requestAnimationFrame(loop);             // animate
     else {
-    
-        ctx.fillRect(x, x, 90, 90);
+
+        //ctx.fillRect(x, x, 90, 90);
         ctx.fillText(txt[i], x, 90);                               // fill final letter
         dashOffset = dashLen;                                      // prep next char
         x += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
@@ -354,3 +443,53 @@ function loopMenu() {
         if (i < menuTxt.length) requestAnimationFrame(loopMenu);
     }
 }
+
+function animateText(x, y, txt, speed) {
+
+    var tx = x;
+
+    function recAnimateText() {
+
+
+        ctx.shadowBlur = 0;
+        ctx.globalCompositeOperation = "source-over";
+        ctx.globalCompositeOperation = "lighter";
+        ctx.shadowBlur = 15;
+
+        //ctx.clearRect(x, 0, 60, 150);
+        ctx.setLineDash([dashLen - dashOffset, dashOffset - speed]); // create a long dash mask
+        dashOffset -= speed;                                         // reduce dash length
+        ctx.strokeText(txt[i], tx, y);                               // stroke letter
+
+        if (dashOffset > 0) requestAnimationFrame(recAnimateText);             // animate
+        else {
+
+            //ctx.fillRect(x, x, 90, 90);
+            ctx.fillText(txt[i], tx, 90);                               // fill final letter
+            dashOffset = dashLen;                                      // prep next char
+            tx += ctx.measureText(txt[i++]).width + ctx.lineWidth * Math.random();
+            ctx.setTransform(1, 0, 0, 1, 0, 3 * Math.random());        // random y-delta
+            ctx.rotate(Math.random() * 0.005);                         // random rotation
+            console.log(tx);
+
+            if (i < txt.length) requestAnimationFrame(recAnimateText);
+        }
+        return tx;
+    }
+    datesBtn.w = recAnimateText().width;
+    //console.log(recAnimateText());
+}
+
+function preShake(px, py) {
+    ctx.save();
+    var dx = Math.random() * px;
+    var dy = Math.random() * py;
+    ctx.translate(dx, dy);
+}
+
+function postShake() {
+    ctx.restore();
+}
+
+
+
